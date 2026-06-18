@@ -1,0 +1,232 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// USER AUTHENTICATION
+// ==========================================
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==========================================
+// EBOOK MANAGEMENT
+// ==========================================
+
+model Ebook {
+  id          String   @id @default(uuid())
+  title       String
+  author      String
+  year        String?
+  genre       String?
+  cover       String?
+  synopsis    String?
+  filePath    String
+  status      String   @default("UNREAD") // UNREAD, READING, FINISHED
+  progress    Float    @default(0) // Percentage 0-100
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categories  EbookCategoryRelation[]
+  tags        EbookTag[]
+  notes       EbookNote[]
+  sessions    ReadingSession[]
+  bookmarks   Bookmark[]
+}
+
+model EbookCategory {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  ebooks      EbookCategoryRelation[]
+}
+
+model EbookTag {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  ebooks      Ebook[]  // Implicit Many-to-Many
+}
+
+model EbookCategoryRelation {
+  ebookId     String
+  categoryId  String
+  ebook       Ebook         @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+  category    EbookCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([ebookId, categoryId])
+}
+
+model EbookNote {
+  id          String   @id @default(uuid())
+  ebookId     String
+  pageOrCfi   String?  // For PDF page or EPUB CFI
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ebook       Ebook    @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+}
+
+model ReadingSession {
+  id          String   @id @default(uuid())
+  ebookId     String
+  startTime   DateTime @default(now())
+  endTime     DateTime?
+  pagesRead   Int?
+
+  ebook       Ebook    @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+}
+
+model Bookmark {
+  id          String   @id @default(uuid())
+  ebookId     String
+  pageOrCfi   String
+  label       String?
+  createdAt   DateTime @default(now())
+
+  ebook       Ebook    @relation(fields: [ebookId], references: [id], onDelete: Cascade)
+}
+
+// ==========================================
+// WRITING STUDIO
+// ==========================================
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  cover       String?
+  genre       String?
+  tags        String?  // comma separated or JSON
+  status      String   @default("DRAFT") // DRAFT, ARCHIVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  chapters      Chapter[]
+  characters    Character[]
+  locations     Location[]
+  organizations Organization[]
+  lore          Lore[]
+  timeline      TimelineEvent[]
+  notes         Note[]
+  relationships Relationship[]
+}
+
+model Chapter {
+  id          String   @id @default(uuid())
+  projectId   String
+  title       String
+  content     String?
+  order       Int      @default(0)
+  status      String   @default("DRAFT") // DRAFT, ARCHIVED
+  wordCount   Int      @default(0)
+  charCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Character {
+  id          String   @id @default(uuid())
+  projectId   String
+  name        String
+  aliases     String?
+  age         String?
+  race        String?
+  personality String?
+  description String?
+  notes       String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Location {
+  id          String   @id @default(uuid())
+  projectId   String
+  name        String
+  type        String?  // Kingdom, City, Village, Continent, etc
+  description String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Organization {
+  id          String   @id @default(uuid())
+  projectId   String
+  name        String
+  type        String?  // Guild, Empire, Clan, Religion
+  description String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Lore {
+  id          String   @id @default(uuid())
+  projectId   String
+  title       String
+  category    String?  // History, Mythology, Artifact, Magic System
+  content     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model TimelineEvent {
+  id          String   @id @default(uuid())
+  projectId   String
+  year        String?
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id          String   @id @default(uuid())
+  projectId   String
+  title       String
+  content     String?
+  tags        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// Universal Relationship System
+model Relationship {
+  id              String   @id @default(uuid())
+  projectId       String
+  sourceType      String   // "Character", "Location", "Organization", etc
+  sourceId        String
+  targetType      String   // "Character", "Location", "Organization", etc
+  targetId        String
+  relationLabel   String   // e.g. "Lives in", "Member of", "Enemies with"
+  description     String?
+  createdAt       DateTime @default(now())
+
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
