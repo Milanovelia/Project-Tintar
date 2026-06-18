@@ -71,7 +71,7 @@ export default async function Dashboard() {
               {ebooks.length === 0 ? (
                 <div className="text-center py-4 text-muted-foreground">Belum ada eBook.</div>
               ) : (
-                ebooks.map((ebook) => (
+                ebooks.map((ebook: any) => (
                   <div key={ebook.id} className="flex items-center gap-3 border-b pb-3 last:border-0 last:pb-0">
                     <div className="h-14 w-10 bg-muted rounded flex-shrink-0 flex items-center justify-center overflow-hidden">
                       {ebook.cover ? (
