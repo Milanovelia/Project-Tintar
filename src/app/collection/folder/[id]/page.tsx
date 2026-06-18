@@ -45,7 +45,7 @@ export default async function FolderPage({ params }: { params: Promise<{ id: str
         </div>
       ) : (
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
-          {ebooks.map(ebook => (
+          {ebooks.map((ebook: any) => (
             <div key={ebook.id} className="relative group">
               <DeleteEbookButton ebookId={ebook.id} ebookTitle={ebook.title} />
               <Link href={`/read/${ebook.id}`} className="block h-full">

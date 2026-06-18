@@ -43,7 +43,7 @@ export default async function ChaptersPage({ params }: { params: Promise<{ id: s
             Belum ada chapter. Silakan tambahkan chapter pertama.
           </div>
         ) : (
-          project.chapters.map(chapter => (
+          project.chapters.map((chapter: any) => (
             <div key={chapter.id} className="p-4 border rounded-lg bg-card/80 backdrop-blur-sm flex justify-between items-center">
               <div>
                 <h3 className="font-semibold">{chapter.title}</h3>

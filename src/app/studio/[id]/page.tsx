@@ -51,7 +51,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4">
-        {sections.map(section => (
+        {sections.map((section: any) => (
           <Link href={section.href} key={section.title}>
             <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

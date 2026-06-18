@@ -33,7 +33,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
             Belum ada timeline tercatat.
           </div>
         ) : (
-          project.timeline.map(event => (
+          project.timeline.map((event: any) => (
             <div key={event.id} className="p-4 border rounded-lg bg-card flex gap-4 items-center">
               <Clock className="h-8 w-8 text-muted-foreground" />
               <div>

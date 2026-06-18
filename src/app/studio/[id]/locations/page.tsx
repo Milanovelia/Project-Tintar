@@ -33,7 +33,7 @@ export default async function LocationsPage({ params }: { params: Promise<{ id: 
             Belum ada lokasi tercatat.
           </div>
         ) : (
-          project.locations.map(loc => (
+          project.locations.map((loc: any) => (
             <div key={loc.id} className="p-4 border rounded-lg bg-card flex gap-4 items-center">
               <MapPin className="h-8 w-8 text-muted-foreground" />
               <div>

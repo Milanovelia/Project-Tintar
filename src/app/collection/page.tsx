@@ -97,7 +97,7 @@ export default async function CollectionPage({ searchParams }: { searchParams: P
           <p className="text-sm text-muted-foreground">Tidak ada folder ditemukan.</p>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {folders.map(folder => (
+            {folders.map((folder: any) => (
               <Card key={folder.id} className="group relative hover:bg-muted/50 transition-colors border-transparent hover:border-border h-full">
                 <DeleteFolderButton folderId={folder.id} folderName={folder.name} />
                 <Link href={`/collection/folder/${folder.id}`} className="block h-full cursor-pointer">
@@ -125,7 +125,7 @@ export default async function CollectionPage({ searchParams }: { searchParams: P
           </div>
         ) : (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
-            {ebooks.map(ebook => (
+            {ebooks.map((ebook: any) => (
               <Card key={ebook.id} className="group relative hover:bg-muted/50 transition-colors h-full overflow-hidden border-transparent hover:border-border">
                 <DeleteEbookButton ebookId={ebook.id} ebookTitle={ebook.title} />
                 <Link href={`/read/${ebook.id}`} className="block h-full cursor-pointer">

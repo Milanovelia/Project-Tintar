@@ -213,7 +213,7 @@ export function ChapterEditor({ chapter }: ChapterEditorProps) {
             onChange={(e) => setFont(e.target.value)}
             className="h-9 px-3 py-1 bg-background border rounded-md text-sm"
           >
-            {FONTS.map(f => <option key={f.value} value={f.value}>{f.name}</option>)}
+            {FONTS.map((f: any) => <option key={f.value} value={f.value}>{f.name}</option>)}
           </select>
           
           <select 
@@ -221,7 +221,7 @@ export function ChapterEditor({ chapter }: ChapterEditorProps) {
             onChange={(e) => setFontSize(e.target.value)}
             className="h-9 px-3 py-1 bg-background border rounded-md text-sm"
           >
-            {SIZES.map(s => <option key={s.value} value={s.value}>{s.name}</option>)}
+            {SIZES.map((s: any) => <option key={s.value} value={s.value}>{s.name}</option>)}
           </select>
 
           <div className="h-6 w-px bg-border mx-2" />

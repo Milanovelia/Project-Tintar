@@ -33,7 +33,7 @@ export default async function CharactersPage({ params }: { params: Promise<{ id:
             Belum ada karakter.
           </div>
         ) : (
-          project.characters.map(character => (
+          project.characters.map((character: any) => (
             <div key={character.id} className="p-4 border rounded-lg bg-card flex gap-4 items-center">
               <UserCircle className="h-10 w-10 text-muted-foreground" />
               <div>

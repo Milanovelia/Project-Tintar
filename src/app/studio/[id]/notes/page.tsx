@@ -33,7 +33,7 @@ export default async function NotesPage({ params }: { params: Promise<{ id: stri
             Belum ada catatan.
           </div>
         ) : (
-          project.notes.map(note => (
+          project.notes.map((note: any) => (
             <div key={note.id} className="p-4 border rounded-lg bg-card">
               <h3 className="font-semibold mb-2">{note.title}</h3>
               <p className="text-sm text-muted-foreground line-clamp-3">{note.content}</p>

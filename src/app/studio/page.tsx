@@ -30,7 +30,7 @@ export default async function StudioPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map(project => (
+          {projects.map((project: any) => (
             <Card key={project.id} className="group relative hover:bg-muted/50 transition-colors h-full">
               <DeleteProjectButton projectId={project.id} projectTitle={project.title} asGhostIcon={true} />
               <Link href={`/studio/${project.id}`} className="block h-full cursor-pointer">

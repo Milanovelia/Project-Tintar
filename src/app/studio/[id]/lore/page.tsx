@@ -33,7 +33,7 @@ export default async function LorePage({ params }: { params: Promise<{ id: strin
             Belum ada catatan lore.
           </div>
         ) : (
-          project.lore.map(item => (
+          project.lore.map((item: any) => (
             <div key={item.id} className="p-4 border rounded-lg bg-card flex gap-4 items-center">
               <BookText className="h-8 w-8 text-muted-foreground" />
               <div>
