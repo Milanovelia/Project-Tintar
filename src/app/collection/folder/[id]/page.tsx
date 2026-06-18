@@ -20,7 +20,7 @@ export default async function FolderPage({ params }: { params: Promise<{ id: str
 
   if (!folder) notFound()
 
-  const ebooks = folder.ebooks.map(e => e.ebook)
+  const ebooks = folder.ebooks.map((e: any) => e.ebook)
 
   return (
     <div className="space-y-6">
