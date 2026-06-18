@@ -13,7 +13,7 @@ export default async function StatisticsPage({ params }: { params: Promise<{ id:
 
   if (!project) notFound()
 
-  const totalWords = project.chapters.reduce((sum, ch) => sum + (ch.wordCount || 0), 0)
+  const totalWords = project.chapters.reduce((sum: number, ch: any) => sum + (ch.wordCount || 0), 0)
   const totalCharacters = project.characters.length
   const totalLocations = project.locations.length
   const totalChapters = project.chapters.length
