@@ -42,12 +42,12 @@ export default function LoginPage() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-muted/20">
-      <Card className="w-[400px]">
-        <CardHeader>
-          <CardTitle>Login ke Tintar</CardTitle>
-          <CardDescription>Masukkan username dan password Anda untuk masuk.</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}>
+        <Card className="w-[400px]">
+          <CardHeader>
+            <CardTitle>Login ke Tintar</CardTitle>
+            <CardDescription>Masukkan username dan password Anda untuk masuk.</CardDescription>
+          </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
@@ -80,8 +80,8 @@ export default function LoginPage() {
               <Link href="/" className="hover:underline">Kembali ke Halaman Utama</Link>
             </div>
           </CardFooter>
-        </form>
-      </Card>
+        </Card>
+      </form>
     </div>
   )
 }

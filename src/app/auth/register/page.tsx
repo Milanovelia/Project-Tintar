@@ -52,12 +52,12 @@ export default function RegisterPage() {
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-muted/20">
-      <Card className="w-[400px]">
-        <CardHeader>
-          <CardTitle>Daftar Akun Baru</CardTitle>
-          <CardDescription>Buat akun Tintar untuk menyimpan proyek Anda.</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleRegister}>
+      <form onSubmit={handleRegister}>
+        <Card className="w-[400px]">
+          <CardHeader>
+            <CardTitle>Daftar Akun Baru</CardTitle>
+            <CardDescription>Buat akun Tintar untuk menyimpan proyek Anda.</CardDescription>
+          </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
@@ -97,8 +97,8 @@ export default function RegisterPage() {
               Sudah punya akun? <Link href="/auth/login" className="text-primary hover:underline">Login di sini</Link>
             </div>
           </CardFooter>
-        </form>
-      </Card>
+        </Card>
+      </form>
     </div>
   )
 }
